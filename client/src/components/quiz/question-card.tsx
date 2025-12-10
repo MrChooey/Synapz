@@ -217,14 +217,19 @@ export function QuestionCard({
 								</span>
 
 								{/* Correct/Incorrect badges */}
-								{showAsCorrect && (
+								{showAsCorrect && isSelected && (
 									<span className="ml-2 px-3 py-1 bg-green-200 text-green-700 text-sm font-medium rounded-full">
-										✓ Correct
+										✓ Your Answer (Correct)
+									</span>
+								)}
+								{showAsCorrect && !isSelected && (
+									<span className="ml-2 px-3 py-1 bg-green-200 text-green-700 text-sm font-medium rounded-full">
+										✓ Correct Answer
 									</span>
 								)}
 								{showAsIncorrect && (
 									<span className="ml-2 px-3 py-1 bg-red-200 text-red-700 text-sm font-medium rounded-full">
-										✗ Incorrect
+										✗ Your Answer
 									</span>
 								)}
 							</div>

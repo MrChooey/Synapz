@@ -139,8 +139,10 @@ export function useQuiz(category?: string) {
 		setQuizState((prev) => {
 			const prevIndex = Math.max(0, prev.currentQuestionIndex - 1);
 			const newAnswered = new Set(prev.answeredQuestions);
-			// Remove the previous question from answered set to allow re-answering
-			newAnswered.delete(prevIndex);
+			// Only allow re-answering if showCorrectAnswer is disabled
+			if (!showCorrectAnswer) {
+				newAnswered.delete(prevIndex);
+			}
 			return {
 				...prev,
 				currentQuestionIndex: prevIndex,
