@@ -136,10 +136,17 @@ export function useQuiz(category?: string) {
 	};
 
 	const previousQuestion = () => {
-		setQuizState((prev) => ({
-			...prev,
-			currentQuestionIndex: Math.max(0, prev.currentQuestionIndex - 1),
-		}));
+		setQuizState((prev) => {
+			const prevIndex = Math.max(0, prev.currentQuestionIndex - 1);
+			const newAnswered = new Set(prev.answeredQuestions);
+			// Remove the previous question from answered set to allow re-answering
+			newAnswered.delete(prevIndex);
+			return {
+				...prev,
+				currentQuestionIndex: prevIndex,
+				answeredQuestions: newAnswered,
+			};
+		});
 	};
 
 	const completeQuiz = (state: QuizState): QuizState => {

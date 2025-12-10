@@ -45,6 +45,17 @@ export default function Quiz() {
 		showCorrectAnswer,
 	} = useQuiz(category);
 
+	const handleSubmitAnswer = () => {
+		if (showCorrectAnswer) {
+			// Show the answer and wait for user to click next
+			submitAnswer();
+		} else {
+			// Auto-advance to next question without showing answer
+			submitAnswer();
+			nextQuestion();
+		}
+	};
+
 	const goHome = () => setLocation("/");
 
 	const handleRetake = () => {
@@ -243,7 +254,16 @@ export default function Quiz() {
 				{!isCurrentQuestionAnswered ? (
 					<div className="mt-6 flex gap-3">
 						<Button
-							onClick={submitAnswer}
+							onClick={previousQuestion}
+							disabled={!canGoPrevious}
+							variant="outline"
+							size="lg"
+							className="px-8 py-3 text-base font-bold rounded-xl"
+						>
+							Previous
+						</Button>
+						<Button
+							onClick={handleSubmitAnswer}
 							disabled={selectedAnswer === null}
 							size="lg"
 							className="px-8 py-3 text-base font-bold rounded-xl shadow-md hover:opacity-90 transition flex-1"
